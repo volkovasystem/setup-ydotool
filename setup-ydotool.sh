@@ -106,6 +106,9 @@ PRDP="$PLATFORM_ROOT_DIRECTORY_PATH";
 
 TARGET_WORKING_DIRECTORY="$(pwd)";
 
+[[ -z "$TRASH_DIRECTORY" ]] &&	\
+TRASH_DIRECTORY=$(mktemp -d);
+
 load-setting( ){
 	set -o allexport;
 
@@ -124,31 +127,46 @@ load-setting;
 [[ -n "$MACHINE_GRASS" ]] &&	\
 echo -e "$MACHINE_GRASS\n" | sudo -S --validate;
 
-[[ ! -x $(ydotool) ]] &&	\
-sudo apt-get install		\
-git							\
-cmake						\
-scdoc						\
-pkg-config					\
-checkinstall				\
+[[ -x $(which ydotool) ]] &&						\
+[[ -d "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool" ]] &&	\
+[[ -d "$TRASH_DIRECTORY" ]] &&						\
+mv --force "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool" "$TRASH_DIRECTORY";
+
+[[ -x $(which ydotool) ]] &&	\
+sudo apt-get purge --auto-remove ydotool --yes;
+
+[[ ! -x $(which ydotool) ]] &&	\
+sudo apt-get install			\
+git								\
+cmake							\
+scdoc							\
+pkg-config						\
+checkinstall					\
 --yes;
 
-[[ ! -x $(ydotool) ]] &&	\
-git clone https://github.com/ReimuNotMoe/ydotool.git "$PLATFORM_ROOT_DIRECTORY_PATH";
+[[ ! -x $(which ydotool) ]] &&	\
+git -C "$PLATFORM_ROOT_DIRECTORY_PATH" clone https://github.com/ReimuNotMoe/ydotool.git;
 
-[[ ! -x $(ydotool) ]] &&	\
+[[ ! -x $(which ydotool) ]] &&	\
 mkdir -p "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool/build";
 
-[[ ! -x $(ydotool) ]] &&					\
+[[ ! -x $(which ydotool) ]] &&	\
+cd "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool/build";
+
+[[ ! -x $(which ydotool) ]] &&				\
 cmake										\
 -S "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool"	\
 -B "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool/build";
 
-[[ ! -x $(ydotool) ]] &&									\
+[[ ! -x $(which ydotool) ]] &&								\
 sudo checkinstall											\
---pkgname "ydotool"											\
---pkgsource "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool/build"	\
+--pkgname="ydotool"											\
+--pkgsource="$PLATFORM_ROOT_DIRECTORY_PATH/ydotool/build"	\
+--pakdir="$PLATFORM_ROOT_DIRECTORY_PATH/ydotool"			\
+--deldoc=yes												\
+--deldesc=yes												\
+--delspec=yes												\
 --default													\
-make ydotool;
+make install;
 
 set -o history;

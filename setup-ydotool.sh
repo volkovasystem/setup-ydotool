@@ -73,7 +73,6 @@ do
 			HELP_PROMPT_STATUS=true;
 			shift 2
 			;;
-
 		-- )
 			shift;
 			break
@@ -86,12 +85,36 @@ done
 
 set +vx; eval "$SHELL_STATE";
 
+USER_HOME="$HOME";
+
+[[ ! -z "$SUDO_USER" ]] &&	\
+[[ "$HOME" == "/root" ]] &&	\
+USER_HOME=$(getent passwd $SUDO_USER | cut -d: -f6);
+
+[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&				\
+[[ "$PLATFORM_ROOT_DIRECTORY_PATH" == "$PRDP" ]] &&		\
+[[ "${PLATFORM_PARENT_DIRECTORY@a}" == *x* ]] &&		\
+[[ ! -z "$PLATFORM_PARENT_DIRECTORY" ]] &&				\
+PLATFORM_ROOT_DIRECTORY_PATH="$USER_HOME/$PLATFORM_PARENT_DIRECTORY";
+
+[[ -z "$PLATFORM_ROOT_DIRECTORY_PATH" ]] &&				\
+[[ "$PLATFORM_ROOT_DIRECTORY_PATH" == "$PRDP" ]] &&		\
+[[ -z "$PLATFORM_PARENT_DIRECTORY" ]] &&				\
+PLATFORM_ROOT_DIRECTORY_PATH="$USER_HOME";
+
+PRDP="$PLATFORM_ROOT_DIRECTORY_PATH";
+
 TARGET_WORKING_DIRECTORY="$(pwd)";
 
 load-setting( ){
 	set -o allexport;
+
 	[[ -f "$TARGET_WORKING_DIRECTORY/.env" ]] &&	\
 	source "$TARGET_WORKING_DIRECTORY/.env";
+
+	[[ -f "$PLATFORM_ROOT_DIRECTORY_PATH/.env" ]] &&	\
+	source "$PLATFORM_ROOT_DIRECTORY_PATH/.env";
+
 	set +o allexport;
 };
 
@@ -99,7 +122,33 @@ load-setting( ){
 load-setting;
 
 [[ -n "$MACHINE_GRASS" ]] &&	\
-echo -e "$MACHINE_GRASS\n" | sudo -S apt-get update;
+echo -e "$MACHINE_GRASS\n" | sudo -S --validate;
 
+[[ ! -x $(ydotool) ]] &&	\
+sudo apt-get install		\
+git							\
+cmake						\
+scdoc						\
+pkg-config					\
+checkinstall				\
+--yes;
+
+[[ ! -x $(ydotool) ]] &&	\
+git clone https://github.com/ReimuNotMoe/ydotool.git "$PLATFORM_ROOT_DIRECTORY_PATH";
+
+[[ ! -x $(ydotool) ]] &&	\
+mkdir -p "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool/build";
+
+[[ ! -x $(ydotool) ]] &&					\
+cmake										\
+-S "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool"	\
+-B "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool/build";
+
+[[ ! -x $(ydotool) ]] &&									\
+sudo checkinstall											\
+--pkgname "ydotool"											\
+--pkgsource "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool/build"	\
+--default													\
+make ydotool;
 
 set -o history;

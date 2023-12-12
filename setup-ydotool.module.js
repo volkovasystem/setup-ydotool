@@ -94,9 +94,9 @@ const setupYDOTool = (
 																console.error(
 																	(
 																		[
-																			"#cannot-run-setup-docker;",
+																			"#cannot-run-setup-ydotool;",
 
-																			"cannot run setup docker;",
+																			"cannot run setup ydotool;",
 																			"cannot read package file;",
 
 																			"@module-root-directory-path:",
@@ -123,7 +123,7 @@ const setupYDOTool = (
 						)
 				);
 
-				const SETUP_DOCKER_SCRIPT_PATH = (
+				const SETUP_YDOTOOL_SCRIPT_PATH = (
 					path
 					.resolve(
 						(
@@ -136,28 +136,6 @@ const setupYDOTool = (
 					)
 				);
 
-				const resetStatus = (
-						(
-							option
-							.resetStatus
-						)
-					||
-						(
-							undefined
-						)
-				);
-
-				const removeStatus = (
-						(
-							option
-							.removeStatus
-						)
-					||
-						(
-							undefined
-						)
-				);
-
 				const SETUP_COMMAND = (
 					(
 						[
@@ -166,39 +144,7 @@ const setupYDOTool = (
 							),
 
 							(
-								SETUP_DOCKER_SCRIPT_PATH
-							),
-
-							(
-									(
-											(
-													typeof
-													resetStatus
-												==	"boolean"
-											)
-									)
-								?	(
-										`--resetStatus ${ resetStatus }`
-									)
-								:	(
-										undefined
-									)
-							),
-
-							(
-									(
-											(
-													typeof
-													removeStatus
-												==	"boolean"
-											)
-									)
-								?	(
-										`--removeStatus ${ removeStatus }`
-									)
-								:	(
-										undefined
-									)
+								SETUP_YDOTOOL_SCRIPT_PATH
 							),
 						]
 					)
@@ -232,9 +178,9 @@ const setupYDOTool = (
 					console.error(
 						(
 							[
-								"#cannot-run-setup-docker;",
+								"#cannot-run-setup-ydotool;",
 
-								"cannot run setup docker;",
+								"cannot run setup ydotool;",
 
 								"@option-data:",
 								option,

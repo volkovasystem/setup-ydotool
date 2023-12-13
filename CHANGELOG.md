@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2023-12-13/0.0.2
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- Added support for ydotoold service.
+
+###	MODIFIED
+- undefined
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-12-13/0.0.1
 
 ###	UNRELEASED

@@ -11,7 +11,7 @@ sudo --validate
 
 * Default setup via source-curl
 ```bash
-source <(curl -fLqsS https://raw.githubusercontent.com/volkovasystem/setup-ydotool/main/setup-ydotool.sh)
+source <(curl -fLqsS https://raw.githubusercontent.com/volkovasystem/setup-ydotool/main/setup-ydotool.sh?$RANDOM)
 ```
 
 * Default setup via npx

@@ -134,7 +134,7 @@ mv --force "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool" "$TRASH_DIRECTORY";
 
 [[ "$CONTAINER_CONTEXT_STATUS" = true ]] &&	\
 tmux has-session -t ydotoold 2>/dev/null;
-[[ $? != 0 ]] &&	\
+[[ ! $? ]] &&	\
 tmux kill-session -t ydotoold;
 
 [[ -x $(which ydotool) ]] &&	\

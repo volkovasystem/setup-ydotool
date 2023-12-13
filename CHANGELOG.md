@@ -1,5 +1,28 @@
 #	CHANGELOG
 
+##	2023-12-13/0.0.3
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Removed unsupported parameter.
+- Modified usage with support for non-cached setup.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-12-13/0.0.2
 
 ###	UNRELEASED

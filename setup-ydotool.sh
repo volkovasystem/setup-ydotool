@@ -142,6 +142,7 @@ cmake							\
 scdoc							\
 pkg-config						\
 checkinstall					\
+supervisor						\
 --yes;
 
 [[ ! -x $(which ydotool) ]] &&	\
@@ -171,5 +172,29 @@ make install;
 
 [[ -d $TARGET_WORKING_DIRECTORY ]] &&	\
 cd "$TARGET_WORKING_DIRECTORY";
+
+[[ -x $(which ydotool) ]] &&	\
+sudo bash -c "cat > /etc/supervisor/conf.d/ydotoold.conf" <<'EOF'
+[program:ydotoold]
+command=/usr/local/bin/ydotoold
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/ydotoold.error.log
+stdout_logfile=/var/log/ydotoold.output.log
+EOF
+
+[[ "$CONTAINER_CONTEXT_STATUS" = true ]] &&	\
+[[ -x $(which ydotool) ]] &&				\
+sudo $(which supervisord) -n >> /dev/null 2>&1 &
+
+[[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
+[[ -x $(which ydotool) ]] &&					\
+[[ -x $(which systemctl) ]] &&					\
+sudo systemctl restart supervisor;
+
+[[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
+[[ -x $(which ydotool) ]] &&					\
+[[ -x $(which service) ]] &&					\
+sudo service supervisor restart;
 
 set -o history;

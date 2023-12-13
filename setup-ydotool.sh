@@ -169,4 +169,7 @@ sudo checkinstall											\
 --default													\
 make install;
 
+[[ -d $TARGET_WORKING_DIRECTORY ]] &&	\
+cd "$TARGET_WORKING_DIRECTORY";
+
 set -o history;

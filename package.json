@@ -1,7 +1,7 @@
 {
 	"name": "@volkovasystem/setup-ydotool",
 	"alias": "setup-ydotool",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Setup YDOTool",
 	"main": "setup-ydotool.js",
 	"scripts": {
@@ -23,7 +23,7 @@
 		"teardown-module": "source ./setting/default-tool-setting.sh && source ./tool/teardown-module.sh",
 		"prepublishOnly": "npm run release-module",
 		"postpublish": "npm run teardown-module",
-		"postinstall": "setup-ydotool --forceModeStatus true --resetStatus false",
+		"postinstall": "setup-ydotool",
 		"setup-ydotool": "source ./setting/default-tool-setting.sh && node ./setup-ydotool.run.js"
 	},
 	"bin": {

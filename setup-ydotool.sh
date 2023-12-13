@@ -132,6 +132,11 @@ echo -e "$MACHINE_GRASS\n" | sudo -S --validate;
 [[ -d "$TRASH_DIRECTORY" ]] &&						\
 mv --force "$PLATFORM_ROOT_DIRECTORY_PATH/ydotool" "$TRASH_DIRECTORY";
 
+[[ "$CONTAINER_CONTEXT_STATUS" = true ]] &&	\
+tmux has-session -t ydotoold 2>/dev/null;
+[[ $? != 0 ]] &&	\
+tmux kill-session -t ydotoold;
+
 [[ -x $(which ydotool) ]] &&	\
 sudo apt-get purge --auto-remove ydotool --yes;
 
@@ -185,7 +190,7 @@ EOF
 
 [[ "$CONTAINER_CONTEXT_STATUS" = true ]] &&	\
 [[ -x $(which ydotool) ]] &&				\
-sudo $(which supervisord) -n >> /dev/null 2>&1 &
+tmux new -d -s ydotoold \; send-keys "sudo $(which supervisord) -n" Enter;
 
 [[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\
 [[ -x $(which ydotool) ]] &&					\

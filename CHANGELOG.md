@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2023-12-13/0.0.4
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Modified ydotoold service to use tmux session.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-12-13/0.0.3
 
 ###	UNRELEASED

@@ -1,7 +1,7 @@
 {
 	"name": "@volkovasystem/setup-ydotool",
 	"alias": "setup-ydotool",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Setup YDOTool",
 	"main": "setup-ydotool.js",
 	"scripts": {

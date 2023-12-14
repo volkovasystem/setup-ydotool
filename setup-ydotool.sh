@@ -190,7 +190,7 @@ EOF
 
 [[ "$CONTAINER_CONTEXT_STATUS" = true ]] &&	\
 [[ -x $(which ydotool) ]] &&				\
-tmux new -d -s ydotoold; &&					\
+tmux new -d -s ydotoold &&					\
 tmux send-keys -t ydotoold "sudo $(which supervisord) -n" Enter;
 
 [[ "$CONTAINER_CONTEXT_STATUS" != true ]] &&	\

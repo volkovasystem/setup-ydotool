@@ -1,5 +1,27 @@
 #	CHANGELOG
 
+##	2023-12-13/0.0.5
+
+###	UNRELEASED
+- undefined
+
+###	ADDED
+- undefined
+
+###	MODIFIED
+- Fixed sending command to ydotoold tmux session.
+
+###	DEPRECATED
+- undefined
+
+###	REMOVED
+- undefined
+
+###	SECURITY
+- undefined
+
+---
+
 ##	2023-12-13/0.0.4
 
 ###	UNRELEASED
